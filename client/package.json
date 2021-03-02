@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "description": "Front end do PRACTICE Enquete",
   "private": true,
   "dependencies": {
     "react": "17.0.1",

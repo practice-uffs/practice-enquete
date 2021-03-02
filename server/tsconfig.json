@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "lib": ["dom", "es6"],
+    "outDir": "dist",
+    "baseUrl": "./src",
+    "sourceMap": true,
+    "paths": {
+      "@data": ["./data"],
+      "@data/*": ["./data/*"],
+      "@api": ["./api"],
+      "@api/*": ["./api/*"]
+    },
+    "removeComments": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "dangerfile.ts",
+    "*.test.ts",
+    "tsconfig-paths-dist.js",
+    "prod_node_modules"
+  ]
+}
