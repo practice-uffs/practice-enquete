@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+<p align="center">
+    <img width="400" height="200" src=".github/logo.png" title="Logo do projeto"><br />
+    <img src="https://img.shields.io/maintenance/yes/2020?style=for-the-badge" title="Status do projeto">
+    <img src="https://img.shields.io/github/workflow/status/ccuffs/template/ci.uffs.cc?label=Build&logo=github&logoColor=white&style=for-the-badge" title="Status do build">
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Título
 
-## Available Scripts
+Coloque uma descrição do projeto aqui. Geralmente essa descrição tem de duas a três linhas de tamanho. Ela deve dar uma visão geral sobre o que é o projeto, ex.: tecnologia usada, filosofia de existência, qual problema tenta-se resolver, etc. Se você precisa escrever mais que 3 linhas de descrição, crie subseções.
 
-In the project directory, you can run:
+> **IMPORTANTE:** coloque aqui alguma mensagem que é muito relevante aos usuários do projeto, se for o caso.
 
-### `yarn start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Aqui você pode colocar uma screenshot do produto resultante desse projeto. Descreva também suas features usando uma lista:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* Fácil integração;
+* Poucas dependências;
+* Utiliza um template lindo para organizar o `README`;
+* Possui ótima documentação e testes.
 
-### `yarn test`
+## Começando
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Primeiro passo para começar
 
-### `yarn build`
+Geralmente o primeiro passo para começar é instalar dependências para rodar o projeto. Rode:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+apt get install dependencia
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Recomenda-se que cada comando seja colocado em uma linha diferente:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+apt get install outra-coisa
+```
 
-### `yarn eject`
+Dessa forma os usuários podem copiar e colar sem ler as documentação (que é o que geralmente acontece).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 2. Outro(s) passo(s)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Geralmente os próximos passos ensinam como instalar e configurar o projeto para uso/desenvolvimento. Rode:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+git clone https://github.com/ccuffs/template template
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Contribua
 
-## Learn More
+Sua ajuda é muito bem-vinda, independente da forma! Confira o arquivo [CONTRIBUTING.md](CONTRIBUTING.md) para conhecer todas as formas de contribuir com o projeto. Por exemplo, [sugerir uma nova funcionalidade](https://github.com/ccuffs/template/issues/new?assignees=&labels=&template=feature_request.md&title=), [reportar um problema/bug](https://github.com/ccuffs/template/issues/new?assignees=&labels=bug&template=bug_report.md&title=), [enviar um pull request](https://github.com/ccuffs/hacktoberfest/blob/master/docs/tutorial-pull-request.md), ou simplemente utilizar o projeto e comentar sua experiência.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Veja o arquivo [ROADMAP.md](ROADMAP.md) para ter uma ideia de como o projeto deve evoluir.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Licença
+
+Esse projeto é licenciado nos termos da licença open-source [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) e está disponível de graça.
+
+## Changelog
+
+Veja todas as alterações desse projeto no arquivo [CHANGELOG.md](CHANGELOG.md).
+
+## Projetos semelhates
+
+Abaixo está uma lista de links interessantes e projetos similares:
+
+* [Outro projeto](https://github.com/projeto)
+* [Projeto inspiração](https://github.com/projeto)
+* [Ferramenta semelhante](https://github.com/projeto)
