@@ -22,7 +22,28 @@ Em resumo, as tecnologias uilizadas tanto no client como no server são as segui
 
 ## Começando
 
-Basicamente, você precisa instalar a versão do Node.js descrito acima e configurar seu Docker. Feito isso, basta adentrar as pastas dos projetos, rodar `npm install` e tudo estará pronto para que você posa realizar contribuições. Para mais informações específicas do client, [clique aqui](./client/README.md). Para mais informações específicas do server, [clique aqui](./server/README.md).
+Basicamente, você precisa instalar a versão do Node.js descrito acima e configurar seu Docker. Feito isso, basta adentrar as pastas dos projetos e usar o npm para executá-los.
+
+### Executanto o client
+
+```
+cd client
+npm install
+npm start
+```
+
+Para mais informações específicas do client, [clique aqui](./client/README.md).
+
+### Executanto o client
+
+```
+cd server
+docker-compose up -d
+npm install
+npm dev
+```
+
+Para mais informações específicas do server, [clique aqui](./server/README.md).
 
 ## Contribua
 
