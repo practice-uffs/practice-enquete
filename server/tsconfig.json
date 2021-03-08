@@ -10,7 +10,9 @@
       "@data": ["./data"],
       "@data/*": ["./data/*"],
       "@api": ["./api"],
-      "@api/*": ["./api/*"]
+      "@api/*": ["./api/*"],
+      "@test": ["./test"],
+      "@test/*": ["./test/*"]
     },
     "removeComments": true,
     "strict": true,

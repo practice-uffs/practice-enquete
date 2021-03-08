@@ -4,8 +4,6 @@ import { UserInput } from './user.input';
 import { UserType } from './user.type';
 import { BaseError } from '@api/error/base-error';
 
-import bcrypt from 'bcrypt';
-
 @Resolver()
 export class UserResolver {
   @Query(() => [UserType])
@@ -18,8 +16,6 @@ export class UserResolver {
   async createUser(@Arg('data') data: UserInput) {
     try {
       const user = UserEntity.create(data);
-
-      user.password = await bcrypt.hash(user.password, 10);
       await user.save();
 
       return user;

@@ -24,7 +24,7 @@ export class Authenticator {
     });
   };
 
-  static context = ({ req, res }: ServerRequest) => {
+  static context = ({ req }: ServerRequest) => {
     const bearerToken = req.headers?.authorization;
     if (!bearerToken) {
       return null;
@@ -52,7 +52,11 @@ export class Authenticator {
     if (context.userId) {
       return true;
     } else {
-      throw context.error;
+      if (context.error) {
+        throw context.error;
+      } else {
+        throw new BaseError(401, 'Usuário não autorizado', 'Token não enviado');
+      }
     }
   };
 }
