@@ -24,17 +24,7 @@ Em resumo, as tecnologias uilizadas tanto no client como no server são as segui
 
 Basicamente, você precisa instalar a versão do Node.js descrito acima e configurar seu Docker. Feito isso, basta adentrar as pastas dos projetos e usar o npm para executá-los.
 
-### Executanto o client
-
-```
-cd client
-npm install
-npm start
-```
-
-Para mais informações específicas do client, [clique aqui](./client/README.md).
-
-### Executanto o client
+### Executanto a API
 
 ```
 cd server
@@ -43,7 +33,17 @@ npm install
 npm dev
 ```
 
-Para mais informações específicas do server, [clique aqui](./server/README.md).
+Para mais informações específicas do server, [clique aqui](./server/).
+
+### Executanto o client
+
+```
+cd client
+npm install
+npm start
+```
+
+Para mais informações específicas do client, [clique aqui](./client/).
 
 ## Contribua
 
