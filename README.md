@@ -20,22 +20,25 @@ Em resumo, as tecnologias uilizadas tanto no client como no server são as segui
 - [Typescript](https://www.typescriptlang.org/) - Para tornar o JavaScript ainda mais poderoso e rápido de utilizar
 - [GraphQL](https://graphql.org/) - Para criar e utilizar endpoints interativos, dinâmicos e robustos
 
-## Começando
+## Executanto a API
 
-Basicamente, você precisa instalar a versão do Node.js descrito acima e configurar seu Docker. Feito isso, basta adentrar as pastas dos projetos e usar o npm para executá-los.
+ Antes de executar a API, é necessário iniciar os bancos de dados utilizando o Docker. Isso pode ser feito a partir da pasta raiz do projeto conforme é mostrado logo abaixo:
 
-### Executanto a API
+```
+docker-compose up -d
+```
+
+Após isso, é possível rodar a API utilizando os comandos abaixo:
 
 ```
 cd server
-docker-compose up -d
 npm install
-npm dev
+npm start
 ```
 
 Para mais informações específicas do server, [clique aqui](./server/).
 
-### Executanto o client
+## Executanto o client
 
 ```
 cd client
