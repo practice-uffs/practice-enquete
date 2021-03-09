@@ -1,21 +1,21 @@
 localdb:
   image: postgres:11.2
   ports:
-    - "5432:5432"
+    - "5442:5432"
   volumes:
     - ./db/dumps:/app-db-dumps
   environment:
     - POSTGRES_USER=postgres
     - POSTGRES_PASSWORD=postgres
-    - POSTGRES_DB=user_crud
+    - POSTGRES_DB=enquete
 
 testdb:
   image: postgres:11.2
   ports:
-    - "5433:5432"
+    - "5443:5432"
   volumes:
     - ./db/dumps:/app-db-dumps
   environment:
     - POSTGRES_USER=postgres
     - POSTGRES_PASSWORD=postgres
-    - POSTGRES_DB=user_crud
+    - POSTGRES_DB=enquete
