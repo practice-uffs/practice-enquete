@@ -4,10 +4,11 @@
   "description": "Internship OnBoard",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon 'src/index.ts' --exec 'ts-node -r tsconfig-paths/register' src/index.ts -e ts,graphql",
-    "start": "node 'dist/index.js'",
+    "start": "nodemon 'src/index.ts' --exec 'ts-node -r tsconfig-paths/register' src/index.ts -e ts,graphql",
+    "test": "TEST=true mocha 'src/test/*.ts' -r ts-node/register -r tsconfig-paths/register --colors --exit",
     "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
-    "test": "TEST=true mocha 'src/test/*.ts' -r ts-node/register -r tsconfig-paths/register --colors --exit"
+    "prod": "node 'dist/index.js'",
+    "database": "cd .. && docker-compose up -d"
   },
   "repository": {
     "type": "git",
