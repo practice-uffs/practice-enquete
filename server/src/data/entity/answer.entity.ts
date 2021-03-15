@@ -13,6 +13,6 @@ export class AnswerEntity extends BaseEntity {
   @ManyToOne(() => EntryEntity, (entry) => entry.answers)
   entry!: EntryEntity;
 
-  @Column()
-  value!: string;
+  @Column({ type: 'text', nullable: true })
+  value?: string;
 }
