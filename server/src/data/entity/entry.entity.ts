@@ -28,8 +28,8 @@ export class EntryEntity extends BaseEntity {
   answers!: AnswerEntity[];
 
   @CreateDateColumn()
-  creationDate!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updateDate!: Date;
+  updatedAt!: Date;
 }

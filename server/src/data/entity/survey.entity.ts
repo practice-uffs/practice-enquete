@@ -47,8 +47,8 @@ export class SurveyEntity extends BaseEntity {
   entries!: EntryEntity[];
 
   @CreateDateColumn()
-  creationDate!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updateDate!: Date;
+  updatedAt!: Date;
 }
