@@ -5,7 +5,7 @@ import { UserEntity } from '@data/entity/user.entity';
 
 export class SurveyDomain {
   static async create(input: SurveyInputModel): Promise<SurveyTypeModel> {
-    const user = await UserEntity.findOne({ id: input.userId });
+    const user = await UserEntity.findOne({ id: input.userId, active: true });
 
     if (!user) {
       throw new BaseError(400, 'Usuário não encontrado');
