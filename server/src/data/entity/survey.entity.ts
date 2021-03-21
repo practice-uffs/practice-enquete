@@ -10,7 +10,7 @@ export enum SurveyStatus {
 
 @Entity('survey')
 export class SurveyEntity extends BaseEntity {
-  @ManyToOne(() => UserEntity)
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
   user!: UserEntity;
 
   @Column({

@@ -5,7 +5,7 @@ import { UserEntity } from './user.entity';
 
 @Entity('answer')
 export class AnswerEntity extends BaseEntity {
-  @ManyToOne(() => UserEntity, { nullable: true })
+  @ManyToOne(() => UserEntity, { nullable: true, onDelete: 'CASCADE' })
   user?: UserEntity;
 
   @ManyToOne(() => SurveyEntity)

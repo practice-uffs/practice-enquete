@@ -1,5 +1,5 @@
 export interface BaseEntityModel {
-  id: string;
+  id: number;
   active: boolean;
   createdAt: Date;
   updatedAt: Date;

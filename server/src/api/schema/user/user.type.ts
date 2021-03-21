@@ -1,9 +1,9 @@
 import { UserTypeModel } from '@domain/model/user.model';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, Int } from 'type-graphql';
 
 @ObjectType()
 export class UserType implements UserTypeModel {
-  @Field(() => ID, { description: 'Identificador do usuário' })
+  @Field(() => Int, { description: 'Identificador do usuário' })
   id!: number;
 
   @Field(() => String, { description: 'IdUFFS do usuário' })
