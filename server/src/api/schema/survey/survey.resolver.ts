@@ -1,5 +1,5 @@
-import { SurveyUseCase } from '@domain/use-case/survey.use-case';
-import { Arg, Mutation, Query, Resolver } from 'type-graphql';
+import { SurveyDomain } from '@domain/survey.domain';
+import { Arg, Mutation, Resolver } from 'type-graphql';
 import { SurveyInput } from './survey.input';
 import { SurveyType } from './survey.type';
 
@@ -7,6 +7,6 @@ import { SurveyType } from './survey.type';
 export class SurveyResolver {
   @Mutation(() => SurveyType)
   createSurvey(@Arg('data') data: SurveyInput): Promise<SurveyType> {
-    return SurveyUseCase.create(data);
+    return SurveyDomain.create(data);
   }
 }
