@@ -1,11 +1,10 @@
 import 'graphql-import-node';
+import path from 'path';
 import { GraphQLSchema } from 'graphql';
 import { buildSchemaSync } from 'type-graphql';
-import { HelloResolver } from './hello/hello.resolver';
 import { Authenticator } from '@api/server/authenticator';
 
-// Load resolvers
 export const Schema: GraphQLSchema = buildSchemaSync({
-  resolvers: [HelloResolver],
+  resolvers: [path.join(__dirname, '.') + '/**/*.resolver.{ts,js}'],
   authChecker: Authenticator.authChecker,
 });
