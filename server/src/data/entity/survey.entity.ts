@@ -1,31 +1,17 @@
-import {
-  Entity,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  Index,
-  OneToMany,
-} from 'typeorm';
-import { EntryEntity } from './entry.entity';
-import { QuestionEntity } from './question.entity';
+import { Entity, Column, Index, ManyToOne } from 'typeorm';
+import { BaseEntity } from './base.entity';
+import { UserEntity } from './user.entity';
 
 export enum SurveyStatus {
   draft = 'draft',
   public = 'public',
   closed = 'closed',
-  removed = 'removed',
 }
 
 @Entity('survey')
 export class SurveyEntity extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id!: number;
-
-  @Column()
-  @Index()
-  userId!: number;
+  @ManyToOne(() => UserEntity)
+  user!: UserEntity;
 
   @Column({
     type: 'enum',
@@ -37,18 +23,6 @@ export class SurveyEntity extends BaseEntity {
   @Column()
   title!: string;
 
-  @Column({ nullable: true })
-  description?: string;
-
-  @OneToMany(() => QuestionEntity, (question) => question.survey)
-  questions!: QuestionEntity[];
-
-  @OneToMany(() => EntryEntity, (entry) => entry.survey)
-  entries!: EntryEntity[];
-
-  @CreateDateColumn()
-  createdAt!: Date;
-
-  @UpdateDateColumn()
-  updatedAt!: Date;
+  @Column({ type: 'json' })
+  questions!: object[];
 }

@@ -1,18 +1,16 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { EntryEntity } from './entry.entity';
-import { QuestionEntity } from './question.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { BaseEntity } from './base.entity';
+import { SurveyEntity } from './survey.entity';
+import { UserEntity } from './user.entity';
 
 @Entity('answer')
 export class AnswerEntity extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @ManyToOne(() => UserEntity, { nullable: true })
+  user?: UserEntity;
 
-  @ManyToOne(() => QuestionEntity)
-  question!: QuestionEntity;
+  @ManyToOne(() => SurveyEntity)
+  survey!: SurveyEntity;
 
-  @ManyToOne(() => EntryEntity, (entry) => entry.answers)
-  entry!: EntryEntity;
-
-  @Column({ type: 'text', nullable: true })
-  value?: string;
+  @Column({ type: 'json' })
+  content!: object[];
 }
