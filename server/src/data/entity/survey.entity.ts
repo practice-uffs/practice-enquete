@@ -1,4 +1,4 @@
-import { Entity, Column, Index, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { UserEntity } from './user.entity';
 
@@ -10,7 +10,7 @@ export enum SurveyStatus {
 
 @Entity('survey')
 export class SurveyEntity extends BaseEntity {
-  @ManyToOne(() => UserEntity)
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
   user!: UserEntity;
 
   @Column({
@@ -24,5 +24,8 @@ export class SurveyEntity extends BaseEntity {
   title!: string;
 
   @Column({ type: 'json' })
-  questions!: object[];
+  questions!: string;
+
+  @Column({ nullable: true })
+  code?: string;
 }

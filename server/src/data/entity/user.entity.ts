@@ -1,5 +1,4 @@
-import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
-import { AnswerEntity } from './answer.entity';
+import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
 @Entity('user')

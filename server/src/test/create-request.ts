@@ -1,6 +1,6 @@
 import request from 'supertest';
 
-export const Request = (query: string, variables?: object, token?: string) => {
+export const createRequest = (query: string, variables?: object, token?: string, status: number = 200) => {
   const agent = request.agent('http://localhost:3000').post('/').set('Accept', 'application/json');
 
   if (token) {
@@ -13,5 +13,5 @@ export const Request = (query: string, variables?: object, token?: string) => {
       variables,
     })
     .expect('Content-Type', /json/)
-    .expect(200);
+    .expect(status);
 };
