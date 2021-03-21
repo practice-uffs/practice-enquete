@@ -9,6 +9,8 @@
     "paths": {
       "@data": ["./data"],
       "@data/*": ["./data/*"],
+      "@domain": ["./domain"],
+      "@domain/*": ["./domain/*"],
       "@api": ["./api"],
       "@api/*": ["./api/*"],
       "@test": ["./test"],
