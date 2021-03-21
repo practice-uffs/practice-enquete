@@ -1,7 +1,7 @@
 import { Connection } from '@data/config/connection';
 import { Server } from '@api/server/server';
 
-import { SurveyEntity } from '@data/entity/survey.entity';
+import { UserEntity } from '@data/entity/user.entity';
 
 import * as glob from 'glob';
 import * as path from 'path';
@@ -17,5 +17,5 @@ before(async () => {
   .forEach((file) => require(file));
 
 afterEach(async () => {
-  await SurveyEntity.clear();
+  await UserEntity.delete({});
 });
