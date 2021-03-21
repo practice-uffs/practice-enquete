@@ -24,7 +24,7 @@ export class SurveyEntity extends BaseEntity {
   title!: string;
 
   @Column({ type: 'json' })
-  questions!: object[];
+  questions!: string;
 
   @Column({ nullable: true })
   code?: string;
