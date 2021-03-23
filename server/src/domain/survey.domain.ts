@@ -24,7 +24,7 @@ export class SurveyDomain {
       throw new BaseError(400, 'Usuário não encontrado');
     }
 
-    let surveys = await SurveyEntity.find({ where: { user: { id: userId } }, relations: ['user'] });
+    let surveys = await SurveyEntity.find({ relations: ['user'], where: { active: true, user: { id: userId } } });
     if (!surveys) {
       surveys = [];
     }
