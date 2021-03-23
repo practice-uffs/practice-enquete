@@ -1,19 +1,20 @@
 import { InputType, Field } from 'type-graphql';
 import { IsInt, IsJSON, IsString, Min } from 'class-validator';
 import { CreateSurveyInputModel } from '@domain/model/survey.model';
+import { DescriptionLocale, ValidationLocale } from '@locale';
 
 @InputType()
 export class CreateSurveyInput implements CreateSurveyInputModel {
-  @Field({ description: 'Identificador do usuário' })
-  @IsInt({ message: 'O identificador do usuário deve ser um número inteiro' })
-  @Min(0, { message: 'O identificador do usuário deve ser maior que zero' })
+  @Field({ description: DescriptionLocale.userId })
+  @IsInt({ message: ValidationLocale.surveyIdIsNotInt })
+  @Min(0, { message: ValidationLocale.surveyIdMin })
   userId!: number;
 
-  @Field({ description: 'Título da enquete' })
-  @IsString({ message: 'O título precisa ser uma sequência de caracteres' })
+  @Field({ description: DescriptionLocale.surveyTitle })
+  @IsString({ message: ValidationLocale.surveyTitleIsString })
   title!: string;
 
-  @Field({ description: 'Perguntas da enquete' })
-  @IsJSON({ message: 'As perguntas precisam ser uma lista de objetos transformada em JSON' })
+  @Field({ description: DescriptionLocale.surveyQuestions })
+  @IsJSON({ message: ValidationLocale.surveyQuestionsIsJson })
   questions!: string;
 }

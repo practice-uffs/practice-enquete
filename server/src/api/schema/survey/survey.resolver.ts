@@ -1,4 +1,5 @@
 import { SurveyDomain } from '@domain/survey.domain';
+import { DescriptionLocale } from '@locale';
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
 import { CreateSurveyInput } from './create-survey.input';
 import { GetSurveysByUserInput } from './get-surveys-by-user-id.input';
@@ -7,17 +8,17 @@ import { SurveyType } from './survey.type';
 
 @Resolver()
 export class SurveyResolver {
-  @Mutation(() => SurveyType)
+  @Mutation(() => SurveyType, { description: DescriptionLocale.createSurvey })
   createSurvey(@Arg('data') data: CreateSurveyInput): Promise<SurveyType> {
     return SurveyDomain.create(data);
   }
 
-  @Mutation(() => String)
+  @Mutation(() => String, { description: DescriptionLocale.publishSurvey })
   publishSurvey(@Arg('data') data: PublishSurveyInput): Promise<string> {
     return SurveyDomain.publishSurvey(data);
   }
 
-  @Query(() => [SurveyType])
+  @Query(() => [SurveyType], { description: DescriptionLocale.getSurveysByUser })
   getSurveysByUser(@Arg('data') data: GetSurveysByUserInput): Promise<SurveyType[]> {
     return SurveyDomain.getByUser(data);
   }

@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { surveyFragment } from '../fragment';
 import { SurveyEntity } from '@data/entity/survey.entity';
 import { UserEntity } from '@data/entity/user.entity';
+import { ErrorLocale, ValidationLocale } from '@locale';
 
 const query = `
 query getSurveysByUser($data: GetSurveysByUserInput!) {
@@ -85,10 +86,10 @@ describe('GraphQL: Survey - getSurveysByUser', () => {
     expect(res.body.data).to.be.null;
 
     const errorMessages = res.body.errors.map((error: { message: string }) => error.message);
-    expect(errorMessages).to.include('Argumentos inválidos');
-    const errorIndex = errorMessages.indexOf('Argumentos inválidos');
+    expect(errorMessages).to.include(ErrorLocale.invalidArguments);
+    const errorIndex = errorMessages.indexOf(ErrorLocale.invalidArguments);
 
     expect(res.body.errors[errorIndex]).to.own.property('details');
-    expect(res.body.errors[errorIndex].details).to.include('O identificador do usuário deve ser maior que zero');
+    expect(res.body.errors[errorIndex].details).to.include(ValidationLocale.userIdMin);
   });
 });
