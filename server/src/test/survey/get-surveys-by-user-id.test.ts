@@ -5,11 +5,11 @@ import { SurveyEntity } from '@data/entity/survey.entity';
 import { UserEntity } from '@data/entity/user.entity';
 
 const query = `
-query getSurveysByUserId($data: GetSurveysByUserIdInput!) {
-  getSurveysByUserId(data: $data) ${surveyFragment}
+query getSurveysByUser($data: GetSurveysByUserInput!) {
+  getSurveysByUser(data: $data) ${surveyFragment}
 }`;
 
-describe('GraphQL: Survey - getSurveysByUserId', () => {
+describe('GraphQL: Survey - getSurveysByUser', () => {
   it('should get surveys', async () => {
     let user = UserEntity.create({
       idUFFS: 'user.name',
@@ -30,7 +30,7 @@ describe('GraphQL: Survey - getSurveysByUserId', () => {
 
     expect(res.body).to.not.own.property('errors');
 
-    const surveys = res.body.data.getSurveysByUserId;
+    const surveys = res.body.data.getSurveysByUser;
     expect(surveys).to.have.lengthOf(surveysDb.length);
 
     for (let i = 0; i < surveysDb.length; i++) {
@@ -73,7 +73,7 @@ describe('GraphQL: Survey - getSurveysByUserId', () => {
 
     expect(res.body).to.not.own.property('errors');
 
-    const surveys = res.body.data.getSurveysByUserId;
+    const surveys = res.body.data.getSurveysByUser;
     expect(surveys).to.have.lengthOf(0);
   });
 

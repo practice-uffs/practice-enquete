@@ -1,9 +1,9 @@
 import { InputType, Field } from 'type-graphql';
-import { IsInt, IsJSON, IsString, Min } from 'class-validator';
-import { GetSurveysByUserIdInputModel } from '@domain/model/survey.model';
+import { IsInt, Min } from 'class-validator';
+import { GetSurveysByUserInputModel } from '@domain/model/survey.model';
 
 @InputType()
-export class GetSurveysByUserIdInput implements GetSurveysByUserIdInputModel {
+export class GetSurveysByUserInput implements GetSurveysByUserInputModel {
   @Field({ description: 'Identificador do usuário' })
   @IsInt({ message: 'O identificador do usuário deve ser um número inteiro' })
   @Min(0, { message: 'O identificador do usuário deve ser maior que zero' })

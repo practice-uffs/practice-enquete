@@ -17,7 +17,7 @@ export class SurveyDomain {
     return survey.save();
   }
 
-  static async getByUserId(userId: number): Promise<SurveyTypeModel[]> {
+  static async getByUser(userId: number): Promise<SurveyTypeModel[]> {
     const user = await UserEntity.findOne({ id: userId, active: true });
 
     if (!user) {
