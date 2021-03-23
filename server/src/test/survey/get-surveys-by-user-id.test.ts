@@ -53,6 +53,30 @@ describe('GraphQL: Survey - getSurveysByUserId', () => {
     }
   });
 
+  it('should get zero surveys', async () => {
+    let user = UserEntity.create({
+      idUFFS: 'user.name',
+      name: 'full name',
+      email: 'user@gmail.com',
+    });
+    user = await user.save();
+
+    const surveysDb = [];
+    for (let i = 0; i < 5; i++) {
+      surveysDb.push(SurveyEntity.create({ user, title: 'This is a tile', questions: '[]', active: false }));
+      await surveysDb[i].save();
+    }
+
+    const input = { userId: user.id };
+
+    const res = await createRequest(query, { data: input });
+
+    expect(res.body).to.not.own.property('errors');
+
+    const surveys = res.body.data.getSurveysByUserId;
+    expect(surveys).to.have.lengthOf(0);
+  });
+
   it('should trigger negative id validation error', async () => {
     const input = { userId: -1 };
 
