@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { SurveyEntity, SurveyStatus } from '@data/entity/survey.entity';
 import { UserEntity } from '@data/entity/user.entity';
 import { PublishSurveyInputModel } from '@domain/model/survey.model';
+import { ErrorLocale, SuccessLocale, ValidationLocale } from '@locale';
 
 const mutation = `
 mutation publishSurvey($data: PublishSurveyInput!) {
@@ -32,7 +33,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
     const res = await createRequest(mutation, { data: input });
 
     expect(res.body).to.not.own.property('errors');
-    expect(res.body.data.publishSurvey).to.be.eq('Enquete publicada com sucesso');
+    expect(res.body.data.publishSurvey).to.be.eq(SuccessLocale.surveyPublished);
   });
 
   it('should trigger duplicate email error', async () => {
@@ -43,7 +44,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
     const res = await createRequest(mutation, { data: input });
 
     expect(res.body.data).to.be.null;
-    expect(res.body.errors).to.deep.include({ code: 400, message: 'Esta enquete não foi encontrada' });
+    expect(res.body.errors).to.deep.include({ code: 400, message: ErrorLocale.surveyNotFound });
   });
 
   it('should trigger duplicate email error', async () => {
@@ -69,7 +70,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
     const res = await createRequest(mutation, { data: input });
 
     expect(res.body.data).to.be.null;
-    expect(res.body.errors).to.deep.include({ code: 400, message: 'Esta enquete já está publicada' });
+    expect(res.body.errors).to.deep.include({ code: 400, message: ErrorLocale.surveyIsPublic });
   });
 
   it('should trigger duplicate email error', async () => {
@@ -95,7 +96,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
     const res = await createRequest(mutation, { data: input });
 
     expect(res.body.data).to.be.null;
-    expect(res.body.errors).to.deep.include({ code: 400, message: 'Esta enquete está fechada' });
+    expect(res.body.errors).to.deep.include({ code: 400, message: ErrorLocale.surveyIsClosed });
   });
 
   it('should trigger negative id validation error', async () => {
@@ -108,10 +109,10 @@ describe('GraphQL: Survey - publishSurvey', () => {
     expect(res.body.data).to.be.null;
 
     const errorMessages = res.body.errors.map((error: { message: string }) => error.message);
-    expect(errorMessages).to.include('Argumentos inválidos');
-    const errorIndex = errorMessages.indexOf('Argumentos inválidos');
+    expect(errorMessages).to.include(ErrorLocale.invalidArguments);
+    const errorIndex = errorMessages.indexOf(ErrorLocale.invalidArguments);
 
     expect(res.body.errors[errorIndex]).to.own.property('details');
-    expect(res.body.errors[errorIndex].details).to.include('O identificador da enquete deve ser maior que zero');
+    expect(res.body.errors[errorIndex].details).to.include(ValidationLocale.surveyIdMin);
   });
 });

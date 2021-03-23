@@ -1,4 +1,5 @@
 import { GraphQLError } from 'graphql';
+import { ErrorLocale } from '@locale';
 import { ArgumentValidationError } from 'type-graphql';
 import { BaseError } from '../error/base-error';
 
@@ -22,7 +23,7 @@ export const ErrorFormatter = (err: GraphQLError) => {
     });
     code = 400;
     details = errors.toString().split(',');
-    message = 'Argumentos inválidos';
+    message = ErrorLocale.invalidArguments;
   } else {
     message = err.message;
     details = err?.extensions?.exception.detail;

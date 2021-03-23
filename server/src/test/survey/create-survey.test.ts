@@ -4,6 +4,7 @@ import { surveyFragment } from '../fragment';
 import { SurveyEntity } from '@data/entity/survey.entity';
 import { UserEntity } from '@data/entity/user.entity';
 import { CreateSurveyInputModel } from '@domain/model/survey.model';
+import { ErrorLocale, ValidationLocale } from '@locale';
 
 const mutation = `
 mutation createSurvey($data: CreateSurveyInput!) {
@@ -65,7 +66,7 @@ describe('GraphQL: Survey - createSurvey', () => {
     const res = await createRequest(mutation, { data: input });
 
     expect(res.body.data).to.be.null;
-    expect(res.body.errors).to.deep.include({ code: 400, message: 'Este usuário não foi encontrado' });
+    expect(res.body.errors).to.deep.include({ code: 400, message: ErrorLocale.userNotFound });
   });
 
   it('should trigger negative id validation error', async () => {
@@ -80,11 +81,11 @@ describe('GraphQL: Survey - createSurvey', () => {
     expect(res.body.data).to.be.null;
 
     const errorMessages = res.body.errors.map((error: { message: string }) => error.message);
-    expect(errorMessages).to.include('Argumentos inválidos');
-    const errorIndex = errorMessages.indexOf('Argumentos inválidos');
+    expect(errorMessages).to.include(ErrorLocale.invalidArguments);
+    const errorIndex = errorMessages.indexOf(ErrorLocale.invalidArguments);
 
     expect(res.body.errors[errorIndex]).to.own.property('details');
-    expect(res.body.errors[errorIndex].details).to.include('O identificador do usuário deve ser maior que zero');
+    expect(res.body.errors[errorIndex].details).to.include(ValidationLocale.surveyIdMin);
   });
 
   it('should trigger non-json question validation error', async () => {
@@ -99,12 +100,10 @@ describe('GraphQL: Survey - createSurvey', () => {
     expect(res.body.data).to.be.null;
 
     const errorMessages = res.body.errors.map((error: { message: string }) => error.message);
-    expect(errorMessages).to.include('Argumentos inválidos');
-    const errorIndex = errorMessages.indexOf('Argumentos inválidos');
+    expect(errorMessages).to.include(ErrorLocale.invalidArguments);
+    const errorIndex = errorMessages.indexOf(ErrorLocale.invalidArguments);
 
     expect(res.body.errors[errorIndex]).to.own.property('details');
-    expect(res.body.errors[errorIndex].details).to.include(
-      'As perguntas precisam ser uma lista de objetos transformada em JSON',
-    );
+    expect(res.body.errors[errorIndex].details).to.include(ValidationLocale.surveyQuestionsIsJson);
   });
 });

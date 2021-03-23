@@ -1,11 +1,12 @@
 import { InputType, Field } from 'type-graphql';
 import { IsInt, Min } from 'class-validator';
 import { GetSurveysByUserInputModel } from '@domain/model/survey.model';
+import { DescriptionLocale, ValidationLocale } from '@locale';
 
 @InputType()
 export class GetSurveysByUserInput implements GetSurveysByUserInputModel {
-  @Field({ description: 'Identificador do usuário' })
-  @IsInt({ message: 'O identificador do usuário deve ser um número inteiro' })
-  @Min(0, { message: 'O identificador do usuário deve ser maior que zero' })
+  @Field({ description: DescriptionLocale.userId })
+  @IsInt({ message: ValidationLocale.userIdIsNotInt })
+  @Min(0, { message: ValidationLocale.userIdMin })
   userId!: number;
 }
