@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { surveyFragment } from '../fragment';
 import { SurveyEntity } from '@data/entity/survey.entity';
 import { UserEntity } from '@data/entity/user.entity';
+import { CreateSurveyInputModel } from '@domain/model/survey.model';
 
 const mutation = `
 mutation createSurvey($data: CreateSurveyInput!) {
@@ -18,7 +19,7 @@ describe('GraphQL: Survey - createSurvey', () => {
     });
     user = await user.save();
 
-    const input = {
+    const input: CreateSurveyInputModel = {
       userId: user.id,
       title: 'This is a title',
       questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
@@ -54,8 +55,21 @@ describe('GraphQL: Survey - createSurvey', () => {
     });
   });
 
+  it('should trigger user not found error', async () => {
+    const input: CreateSurveyInputModel = {
+      userId: 0,
+      title: 'This is a title',
+      questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
+    };
+
+    const res = await createRequest(mutation, { data: input });
+
+    expect(res.body.data).to.be.null;
+    expect(res.body.errors).to.deep.include({ code: 400, message: 'Este usuário não foi encontrado' });
+  });
+
   it('should trigger negative id validation error', async () => {
-    const input = {
+    const input: CreateSurveyInputModel = {
       userId: -1,
       title: 'This is a title',
       questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
@@ -74,7 +88,7 @@ describe('GraphQL: Survey - createSurvey', () => {
   });
 
   it('should trigger non-json question validation error', async () => {
-    const input = {
+    const input: CreateSurveyInputModel = {
       userId: 0,
       title: 'This is a title',
       questions: '',
