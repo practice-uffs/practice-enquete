@@ -1,12 +1,22 @@
 import { createRequest } from '@test/create-request';
 import { expect } from 'chai';
-import { createSurveyFragment } from './survey.fragment';
+import { surveyFragment } from '../fragment';
 import { SurveyEntity } from '@data/entity/survey.entity';
-import { UserSeed } from '@data/seed/user.seed';
+import { UserEntity } from '@data/entity/user.entity';
+
+const mutation = `
+mutation createSurvey($data: CreateSurveyInput!) {
+  createSurvey(data: $data) ${surveyFragment}
+}`;
 
 describe('GraphQL: Survey - createSurvey', () => {
   it('should create survey', async () => {
-    const [user] = await UserSeed(1);
+    let user = UserEntity.create({
+      idUFFS: 'user.name',
+      name: 'full name',
+      email: 'user@gmail.com',
+    });
+    user = await user.save();
 
     const input = {
       userId: user.id,
@@ -14,7 +24,7 @@ describe('GraphQL: Survey - createSurvey', () => {
       questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
     };
 
-    const res = await createRequest(createSurveyFragment, { data: input });
+    const res = await createRequest(mutation, { data: input });
 
     expect(res.body).to.not.own.property('errors');
 
@@ -51,7 +61,7 @@ describe('GraphQL: Survey - createSurvey', () => {
       questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
     };
 
-    const res = await createRequest(createSurveyFragment, { data: input });
+    const res = await createRequest(mutation, { data: input });
 
     expect(res.body.data).to.be.null;
 
@@ -70,7 +80,7 @@ describe('GraphQL: Survey - createSurvey', () => {
       questions: '',
     };
 
-    const res = await createRequest(createSurveyFragment, { data: input });
+    const res = await createRequest(mutation, { data: input });
 
     expect(res.body.data).to.be.null;
 
