@@ -34,7 +34,7 @@ describe('GraphQL: Survey - getSurveysByUserId', () => {
     expect(surveys).to.have.lengthOf(surveysDb.length);
 
     for (let i = 0; i < surveysDb.length; i++) {
-      const surveyDb = surveysDb[i];
+      const surveyDb = surveysDb[surveysDb.length - i - 1];
       const survey = surveys[i];
 
       expect(survey).to.have.property('id');
