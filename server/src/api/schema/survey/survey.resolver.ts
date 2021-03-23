@@ -12,7 +12,7 @@ export class SurveyResolver {
     return SurveyDomain.create(data);
   }
 
-  @Mutation(() => SurveyType)
+  @Mutation(() => String)
   publishSurvey(@Arg('data') data: PublishSurveyInput): Promise<string> {
     return SurveyDomain.publishSurvey(data);
   }
