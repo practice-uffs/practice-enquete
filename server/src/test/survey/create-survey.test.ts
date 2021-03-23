@@ -55,7 +55,7 @@ describe('GraphQL: Survey - createSurvey', () => {
     });
   });
 
-  it('should trigger duplicate email error', async () => {
+  it('should trigger user not found error', async () => {
     const input: CreateSurveyInputModel = {
       userId: 0,
       title: 'This is a title',
