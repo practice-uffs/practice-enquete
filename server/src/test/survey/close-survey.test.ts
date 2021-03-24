@@ -5,6 +5,7 @@ import { UserEntity } from '@data/entity/user.entity';
 import { ChangeSurveyStatusInputModel } from '@domain/model/survey.model';
 import { ErrorLocale, SuccessLocale, ValidationLocale } from '@locale';
 import { CODE_LENGTH } from '@domain/constants';
+import { generateRandomCode } from '@domain/utils';
 
 const mutation = `
 mutation closeSurvey($data: ChangeSurveyStatusInput!) {
@@ -22,6 +23,7 @@ describe('GraphQL: Survey - closeSurvey', () => {
 
     const survey = SurveyEntity.create({
       user,
+      code: generateRandomCode(CODE_LENGTH),
       title: 'This is a title',
       status: SurveyStatus.published,
       questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
@@ -62,6 +64,7 @@ describe('GraphQL: Survey - closeSurvey', () => {
 
     const survey = SurveyEntity.create({
       user,
+      code: generateRandomCode(CODE_LENGTH),
       title: 'This is a title',
       status: SurveyStatus.draft,
       questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
@@ -88,6 +91,7 @@ describe('GraphQL: Survey - closeSurvey', () => {
 
     const survey = SurveyEntity.create({
       user,
+      code: generateRandomCode(CODE_LENGTH),
       title: 'This is a title',
       status: SurveyStatus.closed,
       questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
