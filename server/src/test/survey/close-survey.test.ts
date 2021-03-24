@@ -7,53 +7,12 @@ import { ErrorLocale, SuccessLocale, ValidationLocale } from '@locale';
 import { CODE_LENGTH } from '@domain/constants';
 
 const mutation = `
-mutation publishSurvey($data: ChangeSurveyStatusInput!) {
-  publishSurvey(data: $data)
+mutation closeSurvey($data: ChangeSurveyStatusInput!) {
+  closeSurvey(data: $data)
 }`;
 
-describe('GraphQL: Survey - publishSurvey', () => {
-  it('should publish survey', async () => {
-    const user = UserEntity.create({
-      idUFFS: 'user.name',
-      name: 'full name',
-      email: 'user@gmail.com',
-    });
-    await user.save();
-
-    const survey = SurveyEntity.create({
-      user,
-      title: 'This is a title',
-      questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
-    });
-    await survey.save();
-
-    const input: ChangeSurveyStatusInputModel = {
-      surveyId: survey.id,
-    };
-
-    const res = await createRequest(mutation, { data: input });
-
-    expect(res.body).to.not.own.property('errors');
-    expect(res.body.data.publishSurvey).to.be.eq(SuccessLocale.surveyPublished);
-
-    const surveyDb = await SurveyEntity.findOne(survey.id);
-    expect(surveyDb?.status).to.be.eq(SurveyStatus.published);
-    expect(surveyDb?.code).to.be.a('string');
-    expect(surveyDb?.code).to.have.lengthOf(CODE_LENGTH);
-  });
-
-  it('should trigger survey not found error', async () => {
-    const input: ChangeSurveyStatusInputModel = {
-      surveyId: 0,
-    };
-
-    const res = await createRequest(mutation, { data: input });
-
-    expect(res.body.data).to.be.null;
-    expect(res.body.errors).to.deep.include({ code: 400, message: ErrorLocale.surveyNotFound });
-  });
-
-  it('should trigger survey is published error', async () => {
+describe('GraphQL: Survey - closeSurvey', () => {
+  it('should close survey', async () => {
     const user = UserEntity.create({
       idUFFS: 'user.name',
       name: 'full name',
@@ -75,8 +34,48 @@ describe('GraphQL: Survey - publishSurvey', () => {
 
     const res = await createRequest(mutation, { data: input });
 
+    expect(res.body).to.not.own.property('errors');
+    expect(res.body.data.closeSurvey).to.be.eq(SuccessLocale.surveyClosed);
+
+    const surveyDb = await SurveyEntity.findOne(survey.id);
+    expect(surveyDb?.status).to.be.eq(SurveyStatus.closed);
+  });
+
+  it('should trigger survey not found error', async () => {
+    const input: ChangeSurveyStatusInputModel = {
+      surveyId: 0,
+    };
+
+    const res = await createRequest(mutation, { data: input });
+
     expect(res.body.data).to.be.null;
-    expect(res.body.errors).to.deep.include({ code: 400, message: ErrorLocale.surveyIsPublished });
+    expect(res.body.errors).to.deep.include({ code: 400, message: ErrorLocale.surveyNotFound });
+  });
+
+  it('should trigger survey is draft error', async () => {
+    const user = UserEntity.create({
+      idUFFS: 'user.name',
+      name: 'full name',
+      email: 'user@gmail.com',
+    });
+    await user.save();
+
+    const survey = SurveyEntity.create({
+      user,
+      title: 'This is a title',
+      status: SurveyStatus.draft,
+      questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
+    });
+    await survey.save();
+
+    const input: ChangeSurveyStatusInputModel = {
+      surveyId: survey.id,
+    };
+
+    const res = await createRequest(mutation, { data: input });
+
+    expect(res.body.data).to.be.null;
+    expect(res.body.errors).to.deep.include({ code: 400, message: ErrorLocale.surveyIsDraft });
   });
 
   it('should trigger survey is closed error', async () => {

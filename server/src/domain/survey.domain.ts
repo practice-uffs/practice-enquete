@@ -1,7 +1,7 @@
 import {
   CreateSurveyInputModel,
   GetSurveysByUserInputModel,
-  PublishSurveyInputModel,
+  ChangeSurveyStatusInputModel,
   SurveyTypeModel,
 } from '@domain/model/survey.model';
 import { SurveyEntity, SurveyStatus } from '@data/entity/survey.entity';
@@ -46,7 +46,7 @@ export class SurveyDomain {
     return surveys;
   }
 
-  static async publishSurvey(input: PublishSurveyInputModel): Promise<string> {
+  static async publishSurvey(input: ChangeSurveyStatusInputModel): Promise<string> {
     const survey = await SurveyEntity.findOne({ id: input.surveyId, active: true });
 
     if (!survey) {
@@ -70,5 +70,26 @@ export class SurveyDomain {
     await survey.save();
 
     return SuccessLocale.surveyPublished;
+  }
+
+  static async closeSurvey(input: ChangeSurveyStatusInputModel): Promise<string> {
+    const survey = await SurveyEntity.findOne({ id: input.surveyId, active: true });
+
+    if (!survey) {
+      throw new BaseError(400, ErrorLocale.surveyNotFound);
+    }
+
+    if (survey.status === SurveyStatus.draft) {
+      throw new BaseError(400, ErrorLocale.surveyIsDraft);
+    }
+
+    if (survey.status === SurveyStatus.closed) {
+      throw new BaseError(400, ErrorLocale.surveyIsClosed);
+    }
+
+    survey.status = SurveyStatus.closed;
+    await survey.save();
+
+    return SuccessLocale.surveyClosed;
   }
 }

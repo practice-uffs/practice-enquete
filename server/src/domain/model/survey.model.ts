@@ -10,7 +10,7 @@ export interface GetSurveysByUserInputModel {
   userId: number;
 }
 
-export interface PublishSurveyInputModel {
+export interface ChangeSurveyStatusInputModel {
   surveyId: number;
 }
 
