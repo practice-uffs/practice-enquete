@@ -19,6 +19,6 @@ export class SurveyType implements SurveyTypeModel {
   @Field(() => String, { description: 'Perguntas da enquete' })
   questions!: string;
 
-  @Field(() => String, { description: 'Código hash da enquete', nullable: true })
-  code?: string;
+  @Field(() => String, { description: 'Código hash da enquete' })
+  code!: string;
 }

@@ -4,6 +4,8 @@ import { surveyFragment } from '../fragment';
 import { SurveyEntity } from '@data/entity/survey.entity';
 import { UserEntity } from '@data/entity/user.entity';
 import { ErrorLocale, ValidationLocale } from '@locale';
+import { generateRandomCode } from '@domain/utils';
+import { CODE_LENGTH } from '@domain/constants';
 
 const query = `
 query getSurveysByUser($data: GetSurveysByUserInput!) {
@@ -21,7 +23,9 @@ describe('GraphQL: Survey - getSurveysByUser', () => {
 
     const surveysDb = [];
     for (let i = 0; i < 5; i++) {
-      surveysDb.push(SurveyEntity.create({ user, title: 'This is a tile', questions: '[]' }));
+      surveysDb.push(
+        SurveyEntity.create({ user, title: 'This is a tile', questions: '[]', code: generateRandomCode(CODE_LENGTH) }),
+      );
       await surveysDb[i].save();
     }
 
@@ -64,7 +68,15 @@ describe('GraphQL: Survey - getSurveysByUser', () => {
 
     const surveysDb = [];
     for (let i = 0; i < 5; i++) {
-      surveysDb.push(SurveyEntity.create({ user, title: 'This is a tile', questions: '[]', active: false }));
+      surveysDb.push(
+        SurveyEntity.create({
+          user,
+          title: 'This is a tile',
+          questions: '[]',
+          code: generateRandomCode(CODE_LENGTH),
+          active: false,
+        }),
+      );
       await surveysDb[i].save();
     }
 

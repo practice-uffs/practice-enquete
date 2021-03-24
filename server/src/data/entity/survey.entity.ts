@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, Index } from 'typeorm';
+import { Entity, Column, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { UserEntity } from './user.entity';
 
@@ -26,7 +26,6 @@ export class SurveyEntity extends BaseEntity {
   @Column({ type: 'json' })
   questions!: string;
 
-  @Column({ nullable: true })
-  @Index({ unique: true })
-  code?: string;
+  @Column({ unique: true })
+  code!: string;
 }

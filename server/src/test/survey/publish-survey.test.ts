@@ -5,6 +5,7 @@ import { UserEntity } from '@data/entity/user.entity';
 import { ChangeSurveyStatusInputModel } from '@domain/model/survey.model';
 import { ErrorLocale, SuccessLocale, ValidationLocale } from '@locale';
 import { CODE_LENGTH } from '@domain/constants';
+import { generateRandomCode } from '@domain/utils';
 
 const mutation = `
 mutation publishSurvey($data: ChangeSurveyStatusInput!) {
@@ -22,6 +23,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
 
     const survey = SurveyEntity.create({
       user,
+      code: generateRandomCode(CODE_LENGTH),
       title: 'This is a title',
       questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
     });
@@ -38,8 +40,6 @@ describe('GraphQL: Survey - publishSurvey', () => {
 
     const surveyDb = await SurveyEntity.findOne(survey.id);
     expect(surveyDb?.status).to.be.eq(SurveyStatus.published);
-    expect(surveyDb?.code).to.be.a('string');
-    expect(surveyDb?.code).to.have.lengthOf(CODE_LENGTH);
   });
 
   it('should trigger survey not found error', async () => {
@@ -63,6 +63,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
 
     const survey = SurveyEntity.create({
       user,
+      code: generateRandomCode(CODE_LENGTH),
       title: 'This is a title',
       status: SurveyStatus.published,
       questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
@@ -89,6 +90,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
 
     const survey = SurveyEntity.create({
       user,
+      code: generateRandomCode(CODE_LENGTH),
       title: 'This is a title',
       status: SurveyStatus.closed,
       questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),

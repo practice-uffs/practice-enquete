@@ -20,5 +20,5 @@ export interface SurveyTypeModel {
   user: UserTypeModel;
   title: string;
   questions: string;
-  code?: string;
+  code: string;
 }

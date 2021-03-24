@@ -36,7 +36,6 @@ describe('GraphQL: Survey - createSurvey', () => {
       title: input.title,
       status: 'draft',
       questions: input.questions,
-      code: null,
       user: {
         id: user.id,
         idUFFS: user.idUFFS,
