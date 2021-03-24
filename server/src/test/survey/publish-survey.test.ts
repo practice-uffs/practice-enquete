@@ -4,6 +4,7 @@ import { SurveyEntity, SurveyStatus } from '@data/entity/survey.entity';
 import { UserEntity } from '@data/entity/user.entity';
 import { PublishSurveyInputModel } from '@domain/model/survey.model';
 import { ErrorLocale, SuccessLocale, ValidationLocale } from '@locale';
+import { CODE_LENGTH } from '@domain/constants';
 
 const mutation = `
 mutation publishSurvey($data: PublishSurveyInput!) {
@@ -34,9 +35,14 @@ describe('GraphQL: Survey - publishSurvey', () => {
 
     expect(res.body).to.not.own.property('errors');
     expect(res.body.data.publishSurvey).to.be.eq(SuccessLocale.surveyPublished);
+
+    const surveyDb = await SurveyEntity.findOne(survey.id);
+    expect(surveyDb?.status).to.be.eq(SurveyStatus.published);
+    expect(surveyDb?.code).to.be.a('string');
+    expect(surveyDb?.code).to.have.lengthOf(CODE_LENGTH);
   });
 
-  it('should trigger duplicate email error', async () => {
+  it('should trigger survey not found error', async () => {
     const input: PublishSurveyInputModel = {
       surveyId: 0,
     };
@@ -47,7 +53,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
     expect(res.body.errors).to.deep.include({ code: 400, message: ErrorLocale.surveyNotFound });
   });
 
-  it('should trigger duplicate email error', async () => {
+  it('should trigger survey is published error', async () => {
     const user = UserEntity.create({
       idUFFS: 'user.name',
       name: 'full name',
@@ -58,7 +64,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
     const survey = SurveyEntity.create({
       user,
       title: 'This is a title',
-      status: SurveyStatus.public,
+      status: SurveyStatus.published,
       questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
     });
     await survey.save();
@@ -70,10 +76,10 @@ describe('GraphQL: Survey - publishSurvey', () => {
     const res = await createRequest(mutation, { data: input });
 
     expect(res.body.data).to.be.null;
-    expect(res.body.errors).to.deep.include({ code: 400, message: ErrorLocale.surveyIsPublic });
+    expect(res.body.errors).to.deep.include({ code: 400, message: ErrorLocale.surveyIsPublished });
   });
 
-  it('should trigger duplicate email error', async () => {
+  it('should trigger survey is closed error', async () => {
     const user = UserEntity.create({
       idUFFS: 'user.name',
       name: 'full name',

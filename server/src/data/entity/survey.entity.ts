@@ -1,10 +1,10 @@
-import { Entity, Column, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne, Index } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { UserEntity } from './user.entity';
 
 export enum SurveyStatus {
   draft = 'draft',
-  public = 'public',
+  published = 'published',
   closed = 'closed',
 }
 
@@ -27,5 +27,6 @@ export class SurveyEntity extends BaseEntity {
   questions!: string;
 
   @Column({ nullable: true })
+  @Index({ unique: true })
   code?: string;
 }

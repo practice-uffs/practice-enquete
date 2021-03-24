@@ -5,6 +5,6 @@ export const ErrorLocale = {
 
   surveyNotFound: 'Esta enquete não foi encontrada',
   surveyIsDraft: 'Esta enquente ainda é um rascunho',
-  surveyIsPublic: 'Esta enquete já foi publicada',
+  surveyIsPublished: 'Esta enquete já foi publicada',
   surveyIsClosed: 'Esta enquete já foi fechada',
 };
