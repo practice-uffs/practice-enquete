@@ -8,6 +8,9 @@ import { SurveyEntity, SurveyStatus } from '@data/entity/survey.entity';
 import { BaseError } from '@api/error/base-error';
 import { UserEntity } from '@data/entity/user.entity';
 import { SuccessLocale, ErrorLocale } from '@locale';
+import bcrypt from 'bcrypt';
+import Hashids from 'hashids';
+import { CODE_LENGTH } from './constants';
 
 export class SurveyDomain {
   static async create(input: CreateSurveyInputModel): Promise<SurveyTypeModel> {
@@ -35,6 +38,7 @@ export class SurveyDomain {
       order: { status: 'ASC', updatedAt: 'DESC' },
       where: { active: true, user: { id: input.userId } },
     });
+
     if (!surveys) {
       surveys = [];
     }
@@ -49,15 +53,20 @@ export class SurveyDomain {
       throw new BaseError(400, ErrorLocale.surveyNotFound);
     }
 
-    if (survey.status === SurveyStatus.public) {
-      throw new BaseError(400, ErrorLocale.surveyIsPublic);
+    if (survey.status === SurveyStatus.published) {
+      throw new BaseError(400, ErrorLocale.surveyIsPublished);
     }
 
     if (survey.status === SurveyStatus.closed) {
       throw new BaseError(400, ErrorLocale.surveyIsClosed);
     }
 
-    survey.status = SurveyStatus.public;
+    const hashids = new Hashids(await bcrypt.genSalt(), CODE_LENGTH);
+    do {
+      survey.code = hashids.encode(survey.id);
+    } while (await SurveyEntity.findOne({ code: survey.code }));
+
+    survey.status = SurveyStatus.published;
     await survey.save();
 
     return SuccessLocale.surveyPublished;
