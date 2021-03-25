@@ -1,6 +1,6 @@
 import { InputType, Field } from 'type-graphql';
 import { IsInt, IsJSON, IsString, Min } from 'class-validator';
-import { CreateSurveyInputModel } from '@domain/model/survey.model';
+import { CreateSurveyInputModel } from '@domain/model';
 import { DescriptionLocale, ValidationLocale } from '@locale';
 
 @InputType()

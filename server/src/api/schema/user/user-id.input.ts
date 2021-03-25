@@ -1,10 +1,10 @@
 import { InputType, Field } from 'type-graphql';
 import { IsInt, Min } from 'class-validator';
-import { GetSurveysByUserInputModel } from '@domain/model/survey.model';
+import { UserIdInputModel } from '@domain/model';
 import { DescriptionLocale, ValidationLocale } from '@locale';
 
 @InputType()
-export class GetSurveysByUserInput implements GetSurveysByUserInputModel {
+export class UserIdInput implements UserIdInputModel {
   @Field({ description: DescriptionLocale.userId })
   @IsInt({ message: ValidationLocale.userIdIsNotInt })
   @Min(0, { message: ValidationLocale.userIdMin })

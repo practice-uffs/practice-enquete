@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { surveyFragment } from '../fragment';
 import { SurveyEntity } from '@data/entity/survey.entity';
 import { UserEntity } from '@data/entity/user.entity';
-import { CreateSurveyInputModel } from '@domain/model/survey.model';
+import { CreateSurveyInputModel } from '@domain/model';
 import { ErrorLocale, ValidationLocale } from '@locale';
 
 const mutation = `

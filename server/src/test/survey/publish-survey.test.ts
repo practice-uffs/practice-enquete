@@ -2,13 +2,13 @@ import { createRequest } from '@test/create-request';
 import { expect } from 'chai';
 import { SurveyEntity, SurveyStatus } from '@data/entity/survey.entity';
 import { UserEntity } from '@data/entity/user.entity';
-import { ChangeSurveyStatusInputModel } from '@domain/model/survey.model';
+import { SurveyIdInputModel } from '@domain/model';
 import { ErrorLocale, SuccessLocale, ValidationLocale } from '@locale';
 import { CODE_LENGTH } from '@domain/constants';
 import { generateRandomCode } from '@domain/utils';
 
 const mutation = `
-mutation publishSurvey($data: ChangeSurveyStatusInput!) {
+mutation publishSurvey($data: SurveyIdInput!) {
   publishSurvey(data: $data)
 }`;
 
@@ -29,7 +29,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
     });
     await survey.save();
 
-    const input: ChangeSurveyStatusInputModel = {
+    const input: SurveyIdInputModel = {
       surveyId: survey.id,
     };
 
@@ -43,7 +43,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
   });
 
   it('should trigger survey not found error', async () => {
-    const input: ChangeSurveyStatusInputModel = {
+    const input: SurveyIdInputModel = {
       surveyId: 0,
     };
 
@@ -70,7 +70,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
     });
     await survey.save();
 
-    const input: ChangeSurveyStatusInputModel = {
+    const input: SurveyIdInputModel = {
       surveyId: survey.id,
     };
 
@@ -97,7 +97,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
     });
     await survey.save();
 
-    const input: ChangeSurveyStatusInputModel = {
+    const input: SurveyIdInputModel = {
       surveyId: survey.id,
     };
 
@@ -108,7 +108,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
   });
 
   it('should trigger negative id validation error', async () => {
-    const input: ChangeSurveyStatusInputModel = {
+    const input: SurveyIdInputModel = {
       surveyId: -1,
     };
 

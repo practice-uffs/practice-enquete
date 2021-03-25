@@ -1,9 +1,4 @@
-import {
-  CreateSurveyInputModel,
-  GetSurveysByUserInputModel,
-  ChangeSurveyStatusInputModel,
-  SurveyTypeModel,
-} from '@domain/model/survey.model';
+import { CreateSurveyInputModel, UserIdInputModel, SurveyIdInputModel, SurveyTypeModel } from '@domain/model';
 import { SurveyEntity, SurveyStatus } from '@data/entity/survey.entity';
 import { BaseError } from '@api/error/base-error';
 import { UserEntity } from '@data/entity/user.entity';
@@ -28,7 +23,7 @@ export class SurveyDomain {
     return survey.save();
   }
 
-  static async getByUser(input: GetSurveysByUserInputModel): Promise<SurveyTypeModel[]> {
+  static async getByUser(input: UserIdInputModel): Promise<SurveyTypeModel[]> {
     const user = await UserEntity.findOne({ id: input.userId, active: true });
 
     if (!user) {
@@ -48,7 +43,7 @@ export class SurveyDomain {
     return surveys;
   }
 
-  static async publishSurvey(input: ChangeSurveyStatusInputModel): Promise<string> {
+  static async publishSurvey(input: SurveyIdInputModel): Promise<string> {
     const survey = await SurveyEntity.findOne({ id: input.surveyId, active: true });
 
     if (!survey) {
@@ -69,7 +64,7 @@ export class SurveyDomain {
     return SuccessLocale.surveyPublished;
   }
 
-  static async closeSurvey(input: ChangeSurveyStatusInputModel): Promise<string> {
+  static async closeSurvey(input: SurveyIdInputModel): Promise<string> {
     const survey = await SurveyEntity.findOne({ id: input.surveyId, active: true });
 
     if (!survey) {

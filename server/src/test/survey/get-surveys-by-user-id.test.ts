@@ -1,6 +1,6 @@
 import { createRequest } from '@test/create-request';
 import { expect } from 'chai';
-import { surveyFragment } from '../fragment';
+import { surveyFragment } from '@test/fragment';
 import { SurveyEntity } from '@data/entity/survey.entity';
 import { UserEntity } from '@data/entity/user.entity';
 import { ErrorLocale, ValidationLocale } from '@locale';
@@ -8,7 +8,7 @@ import { generateRandomCode } from '@domain/utils';
 import { CODE_LENGTH } from '@domain/constants';
 
 const query = `
-query getSurveysByUser($data: GetSurveysByUserInput!) {
+query getSurveysByUser($data: UserIdInput!) {
   getSurveysByUser(data: $data) ${surveyFragment}
 }`;
 

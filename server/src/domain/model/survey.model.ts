@@ -6,11 +6,7 @@ export interface CreateSurveyInputModel {
   questions: string;
 }
 
-export interface GetSurveysByUserInputModel {
-  userId: number;
-}
-
-export interface ChangeSurveyStatusInputModel {
+export interface SurveyIdInputModel {
   surveyId: number;
 }
 

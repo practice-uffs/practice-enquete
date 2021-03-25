@@ -1,4 +1,4 @@
-import { UserTypeModel } from '@domain/model/user.model';
+import { UserTypeModel } from '@domain/model';
 import { DescriptionLocale } from '@locale';
 import { ObjectType, Field, Int } from 'type-graphql';
 

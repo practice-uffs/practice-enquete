@@ -1,4 +1,4 @@
-import { SurveyTypeModel } from '@domain/model/survey.model';
+import { SurveyTypeModel } from '@domain/model';
 import { ObjectType, Field, Int } from 'type-graphql';
 import { UserType } from '../user/user.type';
 

@@ -4,3 +4,7 @@ export interface UserTypeModel {
   email: string;
   name: string;
 }
+
+export interface UserIdInputModel {
+  userId: number;
+}
