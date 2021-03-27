@@ -12,5 +12,5 @@ export class AnswerEntity extends BaseEntity {
   survey!: SurveyEntity;
 
   @Column({ type: 'json' })
-  content!: object[];
+  content!: any[];
 }

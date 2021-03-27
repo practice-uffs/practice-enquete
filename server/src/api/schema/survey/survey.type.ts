@@ -1,24 +1,26 @@
-import { SurveyTypeModel } from '@domain/model';
+import { QuestionTypeModel, SurveyTypeModel } from '@domain/model';
+import { DescriptionLocale } from '@locale';
 import { ObjectType, Field, Int } from 'type-graphql';
-import { UserType } from '../user/user.type';
+import { QuestionType } from '@api/schema/question/question.type';
+import { UserType } from '@api/schema/user/user.type';
 
 @ObjectType()
 export class SurveyType implements SurveyTypeModel {
-  @Field(() => Int, { description: 'Identificador da enquete' })
+  @Field(() => Int, { description: DescriptionLocale.surveyId })
   id!: number;
 
-  @Field(() => UserType, { description: 'Usuário criador da enquete' })
+  @Field(() => UserType, { description: DescriptionLocale.surveyUser })
   user!: UserType;
 
-  @Field(() => String, { description: 'Estado da enquete' })
+  @Field(() => String, { description: DescriptionLocale.surveyStatus })
   status!: string;
 
-  @Field(() => String, { description: 'Título da enquete' })
+  @Field(() => String, { description: DescriptionLocale.surveyTitle })
   title!: string;
 
-  @Field(() => String, { description: 'Perguntas da enquete' })
-  questions!: string;
+  @Field(() => [QuestionType], { description: DescriptionLocale.surveyQuestions })
+  questions!: Array<QuestionTypeModel>;
 
-  @Field(() => String, { description: 'Código hash da enquete' })
+  @Field(() => String, { description: DescriptionLocale.surveyCode })
   code!: string;
 }

@@ -1,9 +1,16 @@
+import { QuestionTypeModel } from './question.model';
 import { UserTypeModel } from './user.model';
+
+export enum SurveyStatus {
+  draft = 'draft',
+  published = 'published',
+  closed = 'closed',
+}
 
 export interface CreateSurveyInputModel {
   userId: number;
   title: string;
-  questions: string;
+  questions: Array<QuestionTypeModel>;
 }
 
 export interface SurveyIdInputModel {
@@ -15,6 +22,6 @@ export interface SurveyTypeModel {
   status: string;
   user: UserTypeModel;
   title: string;
-  questions: string;
   code: string;
+  questions: Array<QuestionTypeModel>;
 }
