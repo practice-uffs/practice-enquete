@@ -6,11 +6,17 @@ import { UserEntity } from '@data/entity/user.entity';
 import { ErrorLocale, ValidationLocale } from '@locale';
 import { generateRandomCode } from '@domain/utils';
 import { CODE_LENGTH } from '@domain/constants';
+import { QuestionContentType, QuestionTypeModel } from '@domain/model';
 
 const query = `
 query getSurveysByUser($data: UserIdInput!) {
   getSurveysByUser(data: $data) ${surveyFragment}
 }`;
+
+const questions: Array<QuestionTypeModel> = [
+  { title: 'Question 1', type: QuestionContentType.shortText, required: true },
+  { title: 'Question 2', type: QuestionContentType.longText, required: true },
+];
 
 describe('GraphQL: Survey - getSurveysByUser', () => {
   it('should get surveys', async () => {
@@ -24,7 +30,7 @@ describe('GraphQL: Survey - getSurveysByUser', () => {
     const surveysDb = [];
     for (let i = 0; i < 5; i++) {
       surveysDb.push(
-        SurveyEntity.create({ user, title: 'This is a tile', questions: '[]', code: generateRandomCode(CODE_LENGTH) }),
+        SurveyEntity.create({ user, title: 'This is a tile', questions, code: generateRandomCode(CODE_LENGTH) }),
       );
       await surveysDb[i].save();
     }
@@ -42,19 +48,21 @@ describe('GraphQL: Survey - getSurveysByUser', () => {
       const surveyDb = surveysDb[surveysDb.length - i - 1];
       const survey = surveys[i];
 
-      expect(survey).to.have.property('id');
-      expect(survey).to.deep.include({
-        title: surveyDb.title,
-        status: surveyDb.status,
-        questions: surveyDb.questions,
-        code: surveyDb.code,
-        user: {
-          id: user.id,
-          idUFFS: user.idUFFS,
-          name: user.name,
-          email: user.email,
-        },
-      });
+      expect(survey.id).to.be.eq(surveyDb.id);
+      expect(survey.title).to.be.eq(surveyDb.title);
+      expect(survey.title).to.be.eq(surveyDb.title);
+      expect(survey.status).to.be.eq(surveyDb.status);
+      expect(survey.code).to.be.eq(surveyDb.code);
+
+      expect(survey.user.id).to.be.eq(user.id);
+      expect(survey.user.id).to.be.eq(input.userId);
+      expect(survey.user.idUFFS).to.be.eq(user.idUFFS);
+      expect(survey.user.name).to.be.eq(user.name);
+      expect(survey.user.email).to.be.eq(user.email);
+
+      for (let j = 0; j < survey.length; j++) {
+        expect(survey.questions[j]).to.deep.include(surveyDb.questions[j]);
+      }
     }
   });
 
@@ -72,7 +80,7 @@ describe('GraphQL: Survey - getSurveysByUser', () => {
         SurveyEntity.create({
           user,
           title: 'This is a tile',
-          questions: '[]',
+          questions,
           code: generateRandomCode(CODE_LENGTH),
           active: false,
         }),
