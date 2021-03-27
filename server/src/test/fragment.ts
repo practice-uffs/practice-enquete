@@ -6,12 +6,30 @@ export const userFragment = `
   email
 }`;
 
+export const optionFragment = `
+{
+  value
+  label
+}`;
+
+export const questionFragment = `
+{
+  title
+  type
+  required
+  options ${optionFragment}
+  placeholder
+  default
+  min
+  max
+}`;
+
 export const surveyFragment = `
 {
   id
   status
   title
-  questions
   code
+  questions ${questionFragment}
   user ${userFragment}
 }`;

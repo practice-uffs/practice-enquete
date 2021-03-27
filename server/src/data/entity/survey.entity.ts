@@ -1,12 +1,7 @@
+import { QuestionTypeModel, SurveyStatus } from '@domain/model';
 import { Entity, Column, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { UserEntity } from './user.entity';
-
-export enum SurveyStatus {
-  draft = 'draft',
-  published = 'published',
-  closed = 'closed',
-}
 
 @Entity('survey')
 export class SurveyEntity extends BaseEntity {
@@ -23,9 +18,9 @@ export class SurveyEntity extends BaseEntity {
   @Column()
   title!: string;
 
-  @Column({ type: 'json' })
-  questions!: string;
-
   @Column({ unique: true })
   code!: string;
+
+  @Column({ type: 'jsonb' })
+  questions!: Array<QuestionTypeModel>;
 }

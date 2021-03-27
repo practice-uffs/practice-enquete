@@ -1,4 +1,4 @@
-export interface BaseEntityModel {
+export interface BaseModel {
   id: number;
   active: boolean;
   createdAt: Date;

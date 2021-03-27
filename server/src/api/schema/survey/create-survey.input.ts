@@ -1,7 +1,8 @@
 import { InputType, Field } from 'type-graphql';
-import { IsInt, IsJSON, IsString, Min } from 'class-validator';
+import { IsArray, IsInt, IsString, Min } from 'class-validator';
 import { CreateSurveyInputModel } from '@domain/model';
 import { DescriptionLocale, ValidationLocale } from '@locale';
+import { QuestionInput } from '@api/schema/question/question.input';
 
 @InputType()
 export class CreateSurveyInput implements CreateSurveyInputModel {
@@ -14,7 +15,7 @@ export class CreateSurveyInput implements CreateSurveyInputModel {
   @IsString({ message: ValidationLocale.surveyTitleIsString })
   title!: string;
 
-  @Field({ description: DescriptionLocale.surveyQuestions })
-  @IsJSON({ message: ValidationLocale.surveyQuestionsIsJson })
-  questions!: string;
+  @Field(() => [QuestionInput], { description: DescriptionLocale.surveyQuestions })
+  @IsArray({ message: ValidationLocale.surveyQuestionsIsArray })
+  questions!: Array<QuestionInput>;
 }

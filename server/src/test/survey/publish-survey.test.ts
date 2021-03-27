@@ -1,8 +1,8 @@
 import { createRequest } from '@test/create-request';
 import { expect } from 'chai';
-import { SurveyEntity, SurveyStatus } from '@data/entity/survey.entity';
+import { SurveyEntity } from '@data/entity/survey.entity';
 import { UserEntity } from '@data/entity/user.entity';
-import { SurveyIdInputModel } from '@domain/model';
+import { QuestionContentType, QuestionTypeModel, SurveyIdInputModel, SurveyStatus } from '@domain/model';
 import { ErrorLocale, SuccessLocale, ValidationLocale } from '@locale';
 import { CODE_LENGTH } from '@domain/constants';
 import { generateRandomCode } from '@domain/utils';
@@ -11,6 +11,11 @@ const mutation = `
 mutation publishSurvey($data: SurveyIdInput!) {
   publishSurvey(data: $data)
 }`;
+
+const questions: Array<QuestionTypeModel> = [
+  { title: 'Question 1', type: QuestionContentType.shortText, required: true },
+  { title: 'Question 2', type: QuestionContentType.longText, required: true },
+];
 
 describe('GraphQL: Survey - publishSurvey', () => {
   it('should publish survey', async () => {
@@ -25,7 +30,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
       user,
       code: generateRandomCode(CODE_LENGTH),
       title: 'This is a title',
-      questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
+      questions,
     });
     await survey.save();
 
@@ -66,7 +71,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
       code: generateRandomCode(CODE_LENGTH),
       title: 'This is a title',
       status: SurveyStatus.published,
-      questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
+      questions,
     });
     await survey.save();
 
@@ -93,7 +98,7 @@ describe('GraphQL: Survey - publishSurvey', () => {
       code: generateRandomCode(CODE_LENGTH),
       title: 'This is a title',
       status: SurveyStatus.closed,
-      questions: JSON.stringify([{ title: 'Question 1' }, { title: 'Question 2' }, { title: 'Question 3' }]),
+      questions,
     });
     await survey.save();
 

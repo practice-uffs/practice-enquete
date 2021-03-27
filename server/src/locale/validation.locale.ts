@@ -5,5 +5,5 @@ export const ValidationLocale = {
   surveyIdIsNotInt: 'O identificador da enquete deve ser um número inteiro',
   surveyIdMin: 'O identificador da enquete deve ser maior que zero',
   surveyTitleIsString: 'O título precisa ser uma sequência de caracteres',
-  surveyQuestionsIsJson: 'As perguntas precisam ser uma lista de objetos transformada em JSON',
+  surveyQuestionsIsArray: 'As perguntas precisam ser uma lista de objetos',
 };
