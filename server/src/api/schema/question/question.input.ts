@@ -19,18 +19,18 @@ export class QuestionInput implements QuestionTypeModel {
   @Field(() => Boolean, { description: DescriptionLocale.questionRequired })
   required!: boolean;
 
-  @Field(() => [OptionInput], { description: DescriptionLocale.questionOptions })
+  @Field(() => [OptionInput], { description: DescriptionLocale.questionOptions, nullable: true })
   options?: Array<OptionInput>;
 
-  @Field(() => String, { description: DescriptionLocale.questionPlaceholder })
+  @Field(() => String, { description: DescriptionLocale.questionPlaceholder, nullable: true })
   placeholder?: string;
 
-  @Field(() => String, { description: DescriptionLocale.questionDefault })
+  @Field(() => String, { description: DescriptionLocale.questionDefault, nullable: true })
   default?: string;
 
-  @Field(() => String, { description: DescriptionLocale.questionMin })
+  @Field(() => String, { description: DescriptionLocale.questionMin, nullable: true })
   min?: string;
 
-  @Field(() => String, { description: DescriptionLocale.questionMax })
+  @Field(() => String, { description: DescriptionLocale.questionMax, nullable: true })
   max?: string;
 }
