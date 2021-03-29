@@ -14,9 +14,12 @@
     "npm": "7.5.1"
   },
   "dependencies": {
+    "bootstrap": "^4.6.0",
     "react": "17.0.1",
+    "react-bootstrap": "^1.5.1",
     "react-dom": "17.0.1",
     "react-scripts": "4.0.3",
+    "styled-components": "^5.2.1",
     "web-vitals": "1.0.1"
   },
   "devDependencies": {
